@@ -5,8 +5,8 @@ before_action :configure_permitted_parameters, if: :devise_controller?
 # サインイン後の遷移先を設定
   def after_sign_in_path_for(resource)
     # Deviseが用意しているメソッドで、サインイン後にどこに遷移するかを設定しているメソッドです。
-    about_path
-    # Aboutページへ遷移するように設定
+    post_images_path
+    # 投稿画像の一覧画面ページへ遷移するように設定
   end
   
 # サインアウト後の遷移先を設定
