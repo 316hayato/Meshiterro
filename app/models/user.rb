@@ -11,12 +11,16 @@ class User < ApplicationRecord
   has_one_attached :profile_image
   # profile_imageという名前でActiveStorageでプロフィール画像を保存できるように設定
   
-  def get_profile_image
+  def get_profile_image(width, height)
+    # get_profile_image(引数を設定)←引数がないとwrong number of arguments (given 2, expected 0)のエラーになる
     unless profile_image.attached?
+      # 画像が設定されない場合
       file_path = Rails.root.join('app/assets/images/sample-author1.jpg')
+      # app/assets/imagesに格納されているsample-author1.jpgという画像をデフォルト画像としてActiveStorageに格納
       profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+       # 格納した画像を表示
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
-    # 引数に設定した値に画像サイズを変更
+    # 受け取った引数に設定した値に画像サイズを変換
   end
 end

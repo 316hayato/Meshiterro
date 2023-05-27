@@ -2,8 +2,8 @@ class PostImage < ApplicationRecord
   #has_one_attached←画像を扱うためのimageカラムを追記
   has_one_attached :image
   # "belongs to〜"とは、直訳すると「〜に属する」という意味です。
-  # 1:N の「N」側にあたるモデルに、belongs_to を記載する必要があります。
   belongs_to :user
+  # 1:N の「N」側にあたるモデルに、belongs_to を記載する必要があります。
   
   def get_image
     unless image.attached?
