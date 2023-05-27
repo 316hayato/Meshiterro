@@ -1,3 +1,4 @@
+<!--投稿内容の詳細-->
 <div>
   <%= image_tag @post_image.get_image %>
   <p>ショップ名：<%= @post_image.shop_name %></p>
@@ -12,5 +13,28 @@
   <!--詳細画面に削除を実行するためのリンクを追記-->
     <%= link_to "削除", post_image_path(@post_image), method: :delete %>
     <!--削除ボタン-->
+  <% end %>
+</div>
+
+<!--投稿内容に対するコメント投稿機能-->
+<div>
+  <p>コメント件数：<%= @post_image.post_comments.count %></p>
+  <% @post_image.post_comments.each do |post_comment| %>
+    <p><%= image_tag post_comment.user.get_profile_image(100,100) %></p>
+    <%= post_comment.user.name %>
+    <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+    <% if post_comment.user == current_user %>
+    <!--コメントしたものがログインユーザーのものであれば削除ボタンを表示-->
+      <%= link_to "削除", post_image_post_comment_path(post_comment.post_image, post_comment), method: :delete %>
+      <!--コメントを削除できるようコメントが投稿されたページ(post_image_post_comment_path)のコメントを指定(post_comment.post_image, post_comment)してdeleteする-->
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: [@post_image, @post_comment] do |f| %>
+    <!--コメントは、post_imageに結びついたpost_commentであるため、2つ用意する必要があります-->
+    <!--post_commentをcreateするためのリクエストは、ルーティングもネスト（親子関係）している-->
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
   <% end %>
 </div>

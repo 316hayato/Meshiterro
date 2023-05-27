@@ -20,6 +20,8 @@ class PostImagesController < ApplicationController
 
   def show
     @post_image = PostImage.find(params[:id])
+    @post_comment = PostComment.new
+    # コメントを投稿するためのインスタンス変数を定義
   end
   
   def destroy

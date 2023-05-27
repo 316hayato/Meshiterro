@@ -1,9 +1,12 @@
+# 1:Nの関連付け(アソシエーション)をモデルに実装(N側)
 class PostImage < ApplicationRecord
   #has_one_attached←画像を扱うためのimageカラムを追記
   has_one_attached :image
   # "belongs to〜"とは、直訳すると「〜に属する」という意味です。
   belongs_to :user
   # 1:N の「N」側にあたるモデルに、belongs_to を記載する必要があります。
+  has_many :post_comments, dependent: :destroy
+  # PostImageが削除された時に、そのUserが投稿したPostCommentが全て削除される
   
   def get_image
     unless image.attached?

@@ -1,3 +1,4 @@
+# 1:Nの関連付け(アソシエーション)をモデルに実装(1側)
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -6,11 +7,12 @@ class User < ApplicationRecord
   # "has_many"とは、直訳すると「たくさん持っている」という意味になります。
   # 1:N の「1」側にあたるモデルに、has_many を記載する必要がある
   has_many :post_images, dependent: :destroy
-  # Userが削除された時に、そのUserが投稿したPostImageが全て削除される
-  
+  has_many :post_comments, dependent: :destroy
+  # Userが削除された時に、そのUserが投稿したPostImage,PostCommentが全て削除される
+
   has_one_attached :profile_image
   # profile_imageという名前でActiveStorageでプロフィール画像を保存できるように設定
-  
+
   def get_profile_image(width, height)
     # get_profile_image(引数を設定)←引数がないとwrong number of arguments (given 2, expected 0)のエラーになる
     unless profile_image.attached?
