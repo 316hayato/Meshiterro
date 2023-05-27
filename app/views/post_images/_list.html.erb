@@ -1,0 +1,23 @@
+<% post_images.each do |post_image| %>
+<!-- @post_images → post_images -->
+<!--コントローラから渡された@post_images変数内から1つずつ取り出して、post_image変数へ格納-->
+<div>
+  <%= link_to post_image_path(post_image.id) do %>
+  <!--一覧画面に、詳細画面へのリンクを追加-->
+    <%= image_tag post_image.get_image %>
+    <!--image_tagを使いpost_imageにActiveStorageで設定したimageを表示-->
+    <!--post_image.get_imageの部分はPostImageモデル内に記述したメソッドを呼び出している-->
+  <% end %>
+  <p>投稿ユーザー画像：<%= image_tag post_image.user.get_profile_image(100,100) %></p>
+  <!--post_image.user.get_profile_imageと記述することで、投稿画像に紐づいたユーザーのプロフィール画像を表示-->
+  <!--@post_imageの投稿者の名前を表示するにはビューに「%= post_image.user.name %」と書く-->
+  <p>ショップ名：<%= post_image.shop_name %></p>
+  <!--post_image変数のshop_nameカラムを表示-->
+  <p>説明：<%= post_image.caption %></p>
+  <!--post_image変数のcaptionカラムを表示-->
+  <p>ユーザーネーム：<%= post_image.user.name %></p>
+  <!--post_image変数のuser_idに関連付けられているuserモデルのnameカラムを表示-->
+  <p><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
+  <!--post_image.post_commentsは親子関係のため記述-->
+</div>
+<% end %>
