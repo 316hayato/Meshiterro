@@ -9,6 +9,11 @@ class PostImage < ApplicationRecord
   has_many :favorites, dependent: :destroy
   # PostImageが削除された時に、そのPostImageが持ってるPostComment,Favoriteが全て削除される
   
+  validates :shop_name, presence: true
+  validates :image, presence: true
+  # バリデーション(入力チェックの機能)を追加
+  # validates:対象項目, presence:存在確認
+  
   def get_image
     unless image.attached?
       # 画像が設定されない場合
