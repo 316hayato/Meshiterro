@@ -11,6 +11,7 @@ import "channels"
 import "jquery";
 import "popper.js";
 import "bootstrap";
+// 追記
 import "../stylesheets/application" 
 import '@fortawesome/fontawesome-free/js/all'
 
