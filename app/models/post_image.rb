@@ -6,7 +6,8 @@ class PostImage < ApplicationRecord
   belongs_to :user
   # 1:N の「N」側にあたるモデルに、belongs_to を記載する必要があります。
   has_many :post_comments, dependent: :destroy
-  # PostImageが削除された時に、そのUserが投稿したPostCommentが全て削除される
+  has_many :favorites, dependent: :destroy
+  # PostImageが削除された時に、そのPostImageが持ってるPostComment,Favoriteが全て削除される
   
   def get_image
     unless image.attached?
@@ -19,4 +20,9 @@ class PostImage < ApplicationRecord
     image
   end
 
+  def favorited_by?(user)
+    # 引数で渡されたユーザidがFavoritesテーブル内に存在（exists?）するかどうかを調べます。
+    favorites.exists?(user_id: user.id)
+    # 存在していればtrue、存在していなければfalseを返す
+  end
 end

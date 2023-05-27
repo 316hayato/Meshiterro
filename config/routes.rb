@@ -9,6 +9,11 @@ Rails.application.routes.draw do
     # コメントは、投稿画像に対してコメントされるため、:post_commentsは、:post_imagesに結びつく(親子関係)
     # 親のresourcesで指定したコントローラ名に、子のresourcesで指定したコントローラ名が続くURLが生成(/post_images/:post_image_id/post_comments(.:format))
     # このような親子関係を、「ネストする」と言う
+    resource :favorites, only: [:create, :destroy]
+    # resourceと単数形にすると、/:idがURLに含まれなくなります。
+    # resourceはそのモデルに関するidがなくてもデータを特定できる場合に用いることが多い
+    # いいね機能の場合は「1人のユーザーは1つの投稿に対して1回しかいいねできない」という仕様
+    
   end
   resources :users, only: [:show, :edit, :update]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

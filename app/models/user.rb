@@ -8,7 +8,8 @@ class User < ApplicationRecord
   # 1:N の「1」側にあたるモデルに、has_many を記載する必要がある
   has_many :post_images, dependent: :destroy
   has_many :post_comments, dependent: :destroy
-  # Userが削除された時に、そのUserが投稿したPostImage,PostCommentが全て削除される
+  has_many :favorites, dependent: :destroy
+  # Userが削除された時に、そのUserが投稿したPostImage,PostComment,Favoriteが全て削除される
 
   has_one_attached :profile_image
   # profile_imageという名前でActiveStorageでプロフィール画像を保存できるように設定
