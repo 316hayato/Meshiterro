@@ -7,8 +7,9 @@
     <!--image_tagを使いpost_imageにActiveStorageで設定したimageを表示-->
     <!--post_image.get_imageの部分はPostImageモデル内に記述したメソッドを呼び出している-->
   <% end %>
-  <p>投稿ユーザー画像：<%= image_tag 'sample-author1.jpg' %></p>
-  <!--ダウンロードした画像を使用-->
+  <p>投稿ユーザー画像：<%= image_tag post_image.user.get_profile_image(100,100) %></p>
+  <!--post_image.user.get_profile_imageと記述することで、投稿画像に紐づいたユーザーのプロフィール画像を表示-->
+  <!--@post_imageの投稿者の名前を表示するにはビューに「%= post_image.user.name %」と書く-->
   <p>ショップ名：<%= post_image.shop_name %></p>
   <!--post_image変数のshop_nameカラムを表示-->
   <p>説明：<%= post_image.caption %></p>
