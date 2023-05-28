@@ -8,7 +8,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.string :email,              null: false, default: ""
       # 暗号化されたパスワード
       t.string :encrypted_password, null: false, default: ""
-
+      # 初期設定では、deviseはメールアドレスを使用してログインする設定になっています。
+      # これは、メールアドレスが比較的多くのサービスでログイン情報として使用されることの裏返しでもあります。
+      
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
